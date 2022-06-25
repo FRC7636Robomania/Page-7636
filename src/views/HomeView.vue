@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+
+const slideshow = ref([
+  { imgurl: 'About-7636' }, { imgurl: 'About-FIRST-pic' }, { imgurl: 'Events-Past-seasons' }, { imgurl: 'IMG_9038' },
+  { imgurl: 'Resource' },
+])
 const blocks = ref([
   {
     content1: '30+',
@@ -65,8 +70,51 @@ const bottomItems = ref([
   },
 ])
 </script>
+<script>
+</script>
+
+<script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import SwiperCore, { Autoplay } from 'swiper'
+import "swiper/swiper-bundle.css"
+
+SwiperCore.use(Autoplay)
+
+export default {
+  components:{ Swiper,SwiperSlide }
+}
+</script>
 
 <template>
+  <swiper
+    :slides-per-view="'auto'"
+    :space-between="30"
+    :autoplay="{
+      delay: 1000,
+      disableOnInteraction: false,
+    }"
+    :centered-slides="true"
+    :loop="true"
+    style="height:600px; width:100%; z-index: -1;"
+  >
+    <swiper-slide
+      v-for="(item,index) in slideshow"
+      :key="index"
+      style="width:100%"
+    >
+      <img
+        :src="require(`@/assets/Elements/FrontIMG/${item.imgurl}.jpg`)"
+        class="position-absolute w-100"
+        style="object-fit: contain; margin-top:-150px;"
+      >
+      <h1
+        class="ml-8 mb-2 text-white font-italic position-absolute"
+        style="top:500px; font-size:7vmin;"
+      >
+        {{item.imgurl}}
+      </h1>
+    </swiper-slide>
+  </swiper>
   <div class="home d-flex flex-column align-items-center justify-content-center px-5 py-5">
     <div class="CTSPItem px-5 py-5 my-5 h-auto w-75">
       <a
